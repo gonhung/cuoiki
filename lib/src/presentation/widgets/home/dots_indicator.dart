@@ -1,5 +1,5 @@
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_amazon_clone_bloc/src/utils/constants/constants.dart';
 
 class DotsIndicatorMap extends StatelessWidget {
@@ -20,7 +20,7 @@ class DotsIndicatorMap extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: sliderImages.asMap().entries.map((entry) {
         return GestureDetector(
-          onTap: () => controller.animateToPage(entry.key),
+          onTap: () => controller.jumpTo(entry.key as double),
           child: Container(
             width: 9.0,
             height: 9.0,
@@ -56,7 +56,7 @@ class DotsIndicatorList extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: sliderImages.asMap().entries.map((entry) {
         return GestureDetector(
-          onTap: () => controller.animateToPage(entry.key),
+          onTap: () => controller.jumpTo(entry.key as double),
           child: Container(
             width: 9.0,
             height: 9.0,

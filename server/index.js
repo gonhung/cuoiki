@@ -13,11 +13,13 @@ const app = express();
 const PORT = process.env.PORT;
 const userName = process.env.DB_USERNAME;
 const password = encodeURIComponent(process.env.DB_PASSWORD);
-const DB = `mongodb+srv://${userName}:${password}@cluster0.fkliyeh.mongodb.net/flutterzon?retryWrites=true&w=majority`
-
+// const DB = `mongodb+srv://${userName}:${password}@cluster0.fkliyeh.mongodb.net/flutterzon?retryWrites=true&w=majority`
+const DB = `mongodb://localhost:27017`
+const cors = require('cors')
 
 // middleware
 app.use(express.json());
+app.use(cors())
 app.use(authRouter);
 app.use(adminRouter);
 app.use(productRouter);

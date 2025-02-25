@@ -78,7 +78,11 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
   }
 
   void saveToStorage(User updatedUser) async {
-    await HydratedBloc.storage
-        .write('user_data', updatedUser.copyWith().toJson());
+    if (HydratedBloc.storage != null) {
+      await HydratedBloc.storage
+          .write('user_data', updatedUser.copyWith().toJson());
+    } else {
+      throw Exception("HydratedStorage not initialized yet.");
+    }
   }
 }
