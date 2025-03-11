@@ -38,7 +38,7 @@ String moveToCartUri = '$uri/api/move-to-cart';
 
 String saveUserAddressUri = '$uri/api/save-user-address';
 String getUserDataUri = '$uri/';
-
+String askAi = '$uri/ask-ai';
 String orderUri = '$uri/api/order';
 String placeOrderBuyNowUri = '$uri/api/place-order-buy-now';
 

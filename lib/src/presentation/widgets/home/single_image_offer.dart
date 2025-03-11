@@ -52,12 +52,16 @@ class SingleImageOffer extends StatelessWidget {
             onTap: () => goToCateogryDealsScreen(),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: CachedNetworkImage(
-                fit: BoxFit.fill,
-                imageUrl: image,
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+              child: Image.network(
+                image,
+                fit: BoxFit.contain,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(child: CircularProgressIndicator());
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Icon(Icons.error);
+                },
               ),
             ),
           ),

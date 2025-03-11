@@ -62,15 +62,11 @@ class AdminFourImagesOffer extends StatelessWidget {
                               flex: 5,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
-                                child: CachedNetworkImage(
-                                  imageUrl: images[index],
+                                child: Image.network(
+                                  images[index],
                                   fit: BoxFit.fill,
                                   width: MediaQuery.sizeOf(context).width,
                                   height: MediaQuery.sizeOf(context).height,
-                                  placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
                                 ),
                               ),
                             ),

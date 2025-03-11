@@ -23,12 +23,17 @@ class CustomCarouselSliderMap extends StatelessWidget {
                   AppRouteConstants.categoryproductsScreenRoute.name,
                   pathParameters: {'category': i['category']!});
             },
-            child: CachedNetworkImage(
-              imageUrl: i['image']!,
-              fit: BoxFit.contain,
+            child: Image.network(
+              i['image']!,
               alignment: Alignment.topCenter,
-              placeholder: (context, url) => const SizedBox(),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
+              fit: BoxFit.contain,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(child: CircularProgressIndicator());
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return Icon(Icons.error);
+              },
             ),
           );
         });
@@ -57,12 +62,17 @@ class CustomCarouselSliderList extends StatelessWidget {
     return CarouselSlider(
       items: sliderImages.map((i) {
         return Builder(builder: (context) {
-          return CachedNetworkImage(
-            imageUrl: i,
-            fit: BoxFit.contain,
+          return Image.network(
+            i,
             alignment: Alignment.topCenter,
-            placeholder: (context, url) => const SizedBox(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+            fit: BoxFit.contain,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return Center(child: CircularProgressIndicator());
+            },
+            errorBuilder: (context, error, stackTrace) {
+              return Icon(Icons.error);
+            },
           );
         });
       }).toList(),

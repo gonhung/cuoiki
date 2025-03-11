@@ -132,7 +132,7 @@ class Constants {
   //Bottom offers amazon pay
   static const List<Map<String, String>> bottomOffersAmazonPay = [
     {
-      'title': 'Amazon Pay',
+      'title': 'NhuMo Pay',
       'image': 'assets/images/bottom_offers/amazon_pay.png'
     },
     {
@@ -420,7 +420,7 @@ class Constants {
 List<SingleImageOffer> singleImageOffers = const [
   SingleImageOffer(
     headTitle: 'Limited period offers on best-selling TVs | Starting ₹8,999',
-    subTitle: 'Up to 18 months No Cost EMI',
+    subTitle: 'Up to 18 months No Cost ',
     image:
         'https://res.cloudinary.com/dthljz11q/image/upload/v1699881799/single_image_offers/ulrpitq6hf4rocgo0m8w.jpg',
     productCategory: 'Electronics',

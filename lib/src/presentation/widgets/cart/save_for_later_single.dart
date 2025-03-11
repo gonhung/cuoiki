@@ -35,6 +35,13 @@ class SaveForLaterSingle extends StatelessWidget {
                     // fit: BoxFit.fitHeight,
                     height: 140,
                     width: 140,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(child: CircularProgressIndicator());
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Text("Lỗi tải ảnh");
+                    },
                   ),
                   const SizedBox(width: 15),
                   Expanded(
@@ -56,7 +63,7 @@ class SaveForLaterSingle extends StatelessWidget {
                         Row(
                           children: [
                             const Text(
-                              '₹',
+                              '',
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.black,

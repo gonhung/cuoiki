@@ -33,6 +33,13 @@ class OrderedProducts extends StatelessWidget {
                     height: 110,
                     width: 100,
                     fit: BoxFit.contain,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(child: CircularProgressIndicator());
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Text("Lỗi tải ảnh");
+                    },
                     // width: 120,
                   ),
                   const SizedBox(width: 20),
@@ -56,7 +63,7 @@ class OrderedProducts extends StatelessWidget {
                   ),
                   const SizedBox(width: 20),
                   Text(
-                    '₹${formatPrice(widget.order.products[i].price)}',
+                    '${formatPrice(widget.order.products[i].price)}',
                     style: textSyle.copyWith(fontSize: 16),
                   ),
                 ],

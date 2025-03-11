@@ -286,12 +286,12 @@ class _AccountScreenState extends State<AccountScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
-                                              child: CachedNetworkImage(
-                                                imageUrl: state
-                                                    .keepShoppingForList[index]
-                                                    .images[0],
-                                                height: 110,
-                                              ),
+                                              child: Image.network(
+                                                  state
+                                                      .keepShoppingForList[
+                                                          index]
+                                                      .images[0],
+                                                  height: 110),
                                             ),
                                             const SizedBox(height: 5),
                                             Text(
@@ -406,12 +406,10 @@ class _AccountScreenState extends State<AccountScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
-                                              child: CachedNetworkImage(
-                                                imageUrl: state
-                                                    .wishListProducts[index]
-                                                    .images[0],
-                                                height: 110,
-                                              ),
+                                              child: Image.network(
+                                                  state.wishListProducts[index]
+                                                      .images[0],
+                                                  height: 110),
                                             ),
                                             const SizedBox(height: 5),
                                             Text(

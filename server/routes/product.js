@@ -83,18 +83,20 @@ productRouter.get("/api/get-product-rating/:id", auth , async (req, res) => {
 
 
 productRouter.get("/api/get-ratings-average/:id", auth, async (req, res)=>{
+   
     try {
         
         const { id } = req.params;
         let product = await Product.findById(id);
+        let rating = product?.ratings || [];
         let averageRating = 0;
         let ratingSum = 0;
 
-        for(let i = 0; i<product.ratings.length; i++){
-            ratingSum += product.ratings[i].rating;
+        for(let i = 0; i<rating.length; i++){
+            ratingSum += rating[i].rating;
         }
 
-        averageRating = ratingSum / product.ratings.length;
+        averageRating = ratingSum / rating.length;
 
         if(isNaN(averageRating)){
             averageRating = 0;

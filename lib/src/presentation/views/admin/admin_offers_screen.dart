@@ -50,7 +50,7 @@ class AdminOffersScreen extends StatelessWidget {
                       itemCount: state.fourImagesOfferList.length,
                       itemBuilder: ((context, index) {
                         final offer = state.fourImagesOfferList[index];
-
+                        print('offer: ${offer}');
                         return AdminFourImagesOffer(
                           offerId: offer.id!,
                           title: offer.title,

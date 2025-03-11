@@ -5,15 +5,15 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'user_state.dart';
 
-class UserCubit extends Cubit<UserState> with HydratedMixin {
+class UserCubit extends HydratedCubit<UserState> {
   final UserRepository userRepository;
+
   UserCubit(this.userRepository) : super(UserInitialS());
 
   void setUser(User user) {
     emit(UserLoadingS());
     try {
       saveToStorage(user);
-
       emit(UserSuccessS(user: user.copyWith()));
     } catch (e) {
       emit(UserErrorS(errorString: e.toString()));
@@ -21,12 +21,15 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
   }
 
   Future<User> getUserData() async {
-    User user;
-
-    user = await userRepository.getUserData();
-    saveToStorage(user);
-    emit(UserSuccessS(user: user));
-    return user;
+    try {
+      User user = await userRepository.getUserData();
+      emit(UserSuccessS(user: user));
+      saveToStorage(user);
+      return user;
+    } catch (e) {
+      emit(UserErrorS(errorString: e.toString()));
+      throw e;
+    }
   }
 
   User? get currentUser {
@@ -41,7 +44,6 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     emit(UserLoadingS());
     try {
       saveToStorage(updatedUser);
-
       emit(UserSuccessS(user: updatedUser.copyWith()));
     } catch (e) {
       emit(UserErrorS(errorString: e.toString()));
@@ -51,7 +53,6 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
   void saveUserAddress({required String address}) async {
     try {
       User user = await userRepository.saveUserAddress(address: address);
-
       updateUser(user);
     } catch (e) {
       emit(UserErrorS(errorString: e.toString()));
@@ -63,8 +64,8 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     try {
       final user = User.fromJson(json['user']);
       return UserSuccessS(user: user);
-    } catch (e) {
-      throw Exception(e.toString());
+    } catch (_) {
+      return null;
     }
   }
 
@@ -73,16 +74,16 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     if (state is UserSuccessS) {
       return {'user': state.user.toJson()};
     } else {
-      return {};
+      return null;
     }
   }
 
   void saveToStorage(User updatedUser) async {
-    if (HydratedBloc.storage != null) {
-      await HydratedBloc.storage
-          .write('user_data', updatedUser.copyWith().toJson());
-    } else {
-      throw Exception("HydratedStorage not initialized yet.");
+    try {
+      await HydratedBloc.storage.write('user_data', updatedUser.toJson());
+    } catch (e) {
+      emit(
+          UserErrorS(errorString: "Failed to save user data: ${e.toString()}"));
     }
   }
 }

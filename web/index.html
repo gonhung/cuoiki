@@ -38,6 +38,9 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+  <script>
+    window.flutterWebRenderer = "html";
+  </script>
 </head>
 <body>
   <script>
@@ -55,5 +58,13 @@
       });
     });
   </script>
+  <script>
+    if (window.flutterWebRenderer === 'canvaskit') {
+      window.flutterCanvasKitConfig = {
+        wasmMemoryMaxPages: 16384, // Increase memory pages (optional)
+      };
+    }
+  </script>
+  
 </body>
 </html>

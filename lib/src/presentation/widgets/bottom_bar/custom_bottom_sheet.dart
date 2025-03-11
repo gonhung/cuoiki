@@ -103,7 +103,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
               PayContainers(
                   imagepath: 'assets/images/bottom_offers/amazon_pay.png',
                   belowText: 'Pay Bills, Send Money & more',
-                  onPressedString: 'Amazon Pay'),
+                  onPressedString: 'NhuMo Pay'),
               SizedBox(width: 10),
               PayContainers(
                   imagepath: 'assets/images/minitv.png',

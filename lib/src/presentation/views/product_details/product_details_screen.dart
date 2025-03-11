@@ -197,7 +197,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       children: [
                         TextSpan(
-                          text: '₹${formatPrice(product.price)}',
+                          text: '${formatPrice(product.price)}',
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -451,7 +451,7 @@ class ProductDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
-              '₹',
+              '',
               style: TextStyle(
                   fontSize: 18,
                   color: Colors.black,
@@ -471,12 +471,12 @@ class ProductDetailsScreen extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-            text: 'EMI ',
+            text: 'Cost ',
             style: const TextStyle(
                 fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
             children: [
               TextSpan(
-                text: 'from ₹${getEmi(product)}. No Cost EMI available.',
+                text: 'price from only 40.000VND. No shipping charges.',
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.normal,
@@ -484,7 +484,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: ' EMI options',
+                text: ' Price options',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.normal,

@@ -135,8 +135,8 @@ class MenuCategoryContainer extends StatelessWidget {
               bottom: 4,
               left: 0,
               right: 0,
-              child: CachedNetworkImage(
-                imageUrl: imageLink,
+              child: Image.network(
+                imageLink,
                 width: 120,
                 height: 90,
                 fit: BoxFit.contain,

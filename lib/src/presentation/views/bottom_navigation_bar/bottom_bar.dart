@@ -5,6 +5,7 @@ import 'package:flutter_amazon_clone_bloc/src/logic/blocs/user_cubit/user_cubit.
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/account/account_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/another_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/cart/cart_screen.dart';
+import 'package:flutter_amazon_clone_bloc/src/presentation/views/chat/chat_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/home/home_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/menu/menu_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/bottom_bar/custom_bottom_nav_bar.dart';
@@ -22,6 +23,7 @@ class BottomBar extends StatelessWidget {
     const AnotherScreen(appBarTitle: 'More Screen'),
     const CartScreen(),
     const MenuScreen(),
+    const ChatScreen(),
   ];
 
   bool isOpen = false;
@@ -164,6 +166,13 @@ class BottomBar extends StatelessWidget {
         isOpen: isOpen,
         page: 4,
         label: 'Menu',
+      ),
+      bottomNavBarItem(
+        index: index,
+        iconName: 'chat',
+        isOpen: isOpen,
+        page: 5,
+        label: 'Chat',
       ),
     ];
   }

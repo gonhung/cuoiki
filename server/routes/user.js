@@ -89,10 +89,11 @@ userRouter.delete("/api/delete-from-cart/:id", auth, async (req, res)=>{
         const { id } = req.params;
         const product = await Product.findById(id);
         let user = await User.findById(req.user);
-
+console.log(user,id)
         for(let i=0; i<user.cart.length; i++){
             if(user.cart[i].product._id.equals(product._id)){
                 user.cart.splice(i,1);
+        
                 
             }
         }

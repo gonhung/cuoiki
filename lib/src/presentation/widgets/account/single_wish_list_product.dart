@@ -49,8 +49,8 @@ class SingleWishListProduct extends StatelessWidget {
               decoration: const BoxDecoration(color: Color(0xffF7F7F7)),
               child: Padding(
                 padding: const EdgeInsets.all(15),
-                child: CachedNetworkImage(
-                  imageUrl: product!.images[0],
+                child: Image.network(
+                  product!.images[0],
                   fit: BoxFit.contain,
                 ),
               ),
@@ -92,7 +92,7 @@ class SingleWishListProduct extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text(
-                          '₹',
+                          '',
                           style: TextStyle(
                               fontSize: 18,
                               color: Colors.black,
@@ -122,7 +122,7 @@ class SingleWishListProduct extends StatelessWidget {
                     ),
                     // const SizedBox(height: 4),
                     const Text(
-                      'FREE Delivery by Amazon',
+                      'FREE Delivery by NhuMo',
                       style: productTextStyle,
                     ),
                     // const SizedBox(height: 4),

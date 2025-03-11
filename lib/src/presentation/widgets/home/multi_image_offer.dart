@@ -63,15 +63,20 @@ class MultiImageOffer extends StatelessWidget {
                               flex: 5,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
-                                child: CachedNetworkImage(
-                                  imageUrl: images[index],
-                                  fit: BoxFit.fill,
+                                child: Image.network(
+                                  images[index],
                                   width: MediaQuery.sizeOf(context).width,
                                   height: MediaQuery.sizeOf(context).height,
-                                  placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
+                                  fit: BoxFit.contain,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Icon(Icons.error);
+                                  },
                                 ),
                               ),
                             ),

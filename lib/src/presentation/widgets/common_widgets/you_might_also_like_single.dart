@@ -29,6 +29,13 @@ class YouMightAlsoLikeSingle extends StatelessWidget {
             child: Image.network(
               product.images[0],
               height: 130,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(child: CircularProgressIndicator());
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return Text("Lỗi tải ảnh");
+              },
             ),
           ),
           Text(
@@ -52,7 +59,7 @@ class YouMightAlsoLikeSingle extends StatelessWidget {
             ),
           ),
           Text(
-            '₹$price.00',
+            '$price.00',
             maxLines: 2,
             style: const TextStyle(
                 fontSize: 16,

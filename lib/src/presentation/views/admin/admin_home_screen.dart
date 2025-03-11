@@ -128,11 +128,18 @@ class MenuCategoryContainerAdmin extends StatelessWidget {
               bottom: 4,
               left: 0,
               right: 0,
-              child: CachedNetworkImage(
-                imageUrl: imageLink,
+              child: Image.network(
+                imageLink,
                 width: 120,
                 height: 110,
                 fit: BoxFit.contain,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(child: CircularProgressIndicator());
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Icon(Icons.error);
+                },
               ),
             ),
             Positioned(

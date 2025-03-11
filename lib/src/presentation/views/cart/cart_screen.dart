@@ -102,7 +102,7 @@ class CartScreen extends StatelessWidget {
                                                 color: Colors.black87),
                                           ),
                                           const Text(
-                                            '₹',
+                                            '',
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 color: Colors.black87,
@@ -123,7 +123,7 @@ class CartScreen extends StatelessWidget {
                                       Row(
                                         children: [
                                           const Text(
-                                            'EMI Available ',
+                                            ' No shipping charges ',
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w400,

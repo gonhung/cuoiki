@@ -9,6 +9,7 @@ import 'package:flutter_amazon_clone_bloc/src/utils/constants/constants.dart';
 import 'package:flutter_amazon_clone_bloc/src/utils/utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 // enum Auth { signIn, signUp }
 
@@ -399,8 +400,13 @@ class _AuthScreenState extends State<AuthScreen> {
                                                 context, state.errorString);
                                           }
                                           if (state is SignInSuccessState) {
-                                            BlocProvider.of<UserCubit>(context)
-                                                .getUserData();
+                                            Future.delayed(Duration.zero, () {
+                                              print(
+                                                  "SignInSuccessState, trước khi gọi getUserData, storage: ${HydratedBloc.storage}");
+                                              BlocProvider.of<UserCubit>(
+                                                      context)
+                                                  .getUserData();
+                                            });
                                             if (state.user.type == 'user') {
                                               context.goNamed(AppRouteConstants
                                                   .bottomBarRoute.name);
@@ -410,6 +416,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                             }
                                           }
                                           if (state is UpdateUserData) {
+                                            print(
+                                                "UpdateUserData, gọi setUser, storage: ${HydratedBloc.storage}");
                                             BlocProvider.of<UserCubit>(context)
                                                 .setUser(state.user);
                                           }

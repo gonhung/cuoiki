@@ -77,7 +77,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       Text('Order #              ${order.id}',
                           style: textStyle),
                       Text(
-                          'Order total        ₹${formatPrice(order.totalPrice)}',
+                          'Order total        ${formatPrice(order.totalPrice)}',
                           style: textStyle),
                     ],
                   ),
@@ -140,6 +140,18 @@ class OrderDetailsScreen extends StatelessWidget {
                                             height: 110,
                                             width: 100,
                                             fit: BoxFit.contain,
+                                            loadingBuilder: (context, child,
+                                                loadingProgress) {
+                                              if (loadingProgress == null)
+                                                return child;
+                                              return Center(
+                                                  child:
+                                                      CircularProgressIndicator());
+                                            },
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Text("Lỗi tải ảnh");
+                                            },
                                             // width: 120,
                                           ),
                                           const SizedBox(width: 20),
@@ -168,7 +180,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                           ),
                                           const SizedBox(width: 20),
                                           Text(
-                                            '₹${formatPrice(order.products[index].price)}',
+                                            '${formatPrice(order.products[index].price)}',
                                             style: textStyle.copyWith(
                                                 fontSize: 16),
                                           ),
@@ -422,13 +434,13 @@ class OrderDetailsScreen extends StatelessWidget {
                         ),
                         const OrderSummaryRow(
                           firstText: 'Postage & Packing:',
-                          secondText: '₹0',
+                          secondText: '0',
                           textSyle: textStyle,
                         ),
                         OrderSummaryRow(
                           firstText: 'Sub total:',
                           secondText:
-                              '₹${formatPriceWithDecimal(order.totalPrice)}',
+                              '${formatPriceWithDecimal(order.totalPrice)}',
                           textSyle: textStyle,
                         ),
                         Row(
@@ -439,7 +451,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               style: headingTextSyle,
                             ),
                             Text(
-                              '₹${formatPriceWithDecimal(order.totalPrice)}',
+                              '${formatPriceWithDecimal(order.totalPrice)}',
                               style: headingTextSyle.copyWith(
                                 color: Constants.redColor,
                               ),

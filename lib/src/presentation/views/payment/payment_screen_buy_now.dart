@@ -72,7 +72,7 @@ class _PaymentScreenBuyNowState extends State<PaymentScreenBuyNow> {
                         color: Colors.black87),
                   ),
                   const Text(
-                    '₹',
+                    '',
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.black87,
@@ -165,8 +165,9 @@ class _PaymentScreenBuyNowState extends State<PaymentScreenBuyNow> {
                             }
                           },
                           builder: (context, state) {
+                            print('state: ${state}');
                             if (state is PlaceOrderBuyNowProcessS) {
-                              return GooglePayButton(
+                              return ElevatedButton(
                                 onPressed: () {
                                   addressToBeUsed = '';
                                   bool isFromForm =
@@ -189,14 +190,7 @@ class _PaymentScreenBuyNowState extends State<PaymentScreenBuyNow> {
                                   } else {
                                     showSnackBar(context, 'ERROR');
                                   }
-                                },
-                                width: double.infinity,
-                                height: 50,
-                                paymentConfiguration: snapshot.data!,
-                                paymentItems: state.paymentItems,
-                                type: GooglePayButtonType.order,
-                                margin: const EdgeInsets.only(top: 15.0),
-                                onPaymentResult: (res) {
+
                                   showSnackBar(context, 'Order placed!');
                                   if (state.user.address == '') {
                                     context.read<UserCubit>().saveUserAddress(
@@ -206,12 +200,16 @@ class _PaymentScreenBuyNowState extends State<PaymentScreenBuyNow> {
                                   context
                                       .read<PlaceOrderBuyNowCubit>()
                                       .placeOrderBuyNow(
-                                          product: widget.product,
-                                          address: addressToBeUsed);
+                                        product: widget.product,
+                                        address: addressToBeUsed,
+                                      );
+
                                   Navigator.pop(context);
                                 },
-                                loadingIndicator: const Center(
-                                  child: CircularProgressIndicator(),
+                                child: Text('Order'),
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: Size(double.infinity, 50),
+                                  padding: EdgeInsets.symmetric(vertical: 15),
                                 ),
                               );
                             }

@@ -68,11 +68,20 @@ class TrackingDetailsScreen extends StatelessWidget {
                                     AppRouteConstants
                                         .orderDetailsScreenRoute.name,
                                     extra: order),
-                                child: CachedNetworkImage(
-                                  imageUrl: order.products[0].images[0],
+                                child: Image.network(
+                                  order.products[0].images[0],
                                   height: 70,
                                   width: 70,
-                                  fit: BoxFit.fitHeight,
+                                  fit: BoxFit.contain,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Icon(Icons.error);
+                                  },
                                 ),
                               ),
                             ),

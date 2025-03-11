@@ -50,14 +50,17 @@ class DealOfTheDay extends StatelessWidget {
                                 'deliveryDate': getDeliveryDate(),
                               });
                         },
-                        child: CachedNetworkImage(
-                          fit: BoxFit.contain,
-                          imageUrl: state.product.images[state.imageIndex],
+                        child: Image.network(
+                          state.product.images[state.imageIndex],
                           height: 250,
-                          placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator()),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
+                          fit: BoxFit.contain,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(child: CircularProgressIndicator());
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            return Icon(Icons.error);
+                          },
                         ),
                       ),
                     ),
@@ -87,15 +90,20 @@ class DealOfTheDay extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     color: Colors.grey.shade100,
                                     borderRadius: BorderRadius.circular(8)),
-                                child: CachedNetworkImage(
-                                  fit: BoxFit.contain,
-                                  imageUrl: state.product.images[index],
+                                child: Image.network(
+                                  state.product.images[index],
                                   height: 30,
                                   width: 90,
-                                  placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
+                                  fit: BoxFit.contain,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Icon(Icons.error);
+                                  },
                                 ),
                               ),
                             ),

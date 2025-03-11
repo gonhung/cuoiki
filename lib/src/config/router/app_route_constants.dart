@@ -25,6 +25,8 @@ class AppRouteConstants {
 
   static const menuScreenRoute =
       AppRoute(name: 'menu-screen', path: '/menu-screen');
+  static const chatScreenRoute =
+      AppRoute(name: 'chat-screen', path: '/chat-screen');
 
   static const yourOrdersScreenRoute =
       AppRoute(name: 'your-orders', path: '/your-orders');

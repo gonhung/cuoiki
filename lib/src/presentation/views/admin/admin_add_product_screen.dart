@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_amazon_clone_bloc/src/logic/blocs/admin/admin_add_products/add_product_images/admin_add_products_images_bloc.dart';
 import 'package:flutter_amazon_clone_bloc/src/logic/blocs/admin/admin_add_products/select_category_cubit/admin_add_select_category_cubit.dart';
@@ -10,6 +12,8 @@ import 'package:flutter_amazon_clone_bloc/src/presentation/widgets/common_widget
 import 'package:flutter_amazon_clone_bloc/src/utils/constants/constants.dart';
 import 'package:flutter_amazon_clone_bloc/src/utils/utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:image_picker/image_picker.dart';
 
 class AdminAddProductScreen extends StatefulWidget {
   const AdminAddProductScreen({super.key});
@@ -33,6 +37,35 @@ class _AdminAddProductScreenState extends State<AdminAddProductScreen> {
     descriptionController.dispose();
     priceController.dispose();
     quantityController.dispose();
+  }
+
+  // Hàm async để load danh sách ảnh thành widgets
+  Future<List<Widget>> loadImageWidgets(List<File> images) async {
+    return await Future.wait(images.map((i) async {
+      Uint8List? bytes;
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        // Convert to File and update state
+        final file = File(i.path);
+        bytes =
+            await pickedFile.readAsBytes(); // Read bytes directly from XFile
+      }
+      return Builder(
+        builder: (context) {
+          return kIsWeb
+              ? Image.memory(
+                  bytes!,
+                  height: 150,
+                  fit: BoxFit.cover,
+                )
+              : Image.file(
+                  i,
+                  fit: BoxFit.cover,
+                );
+        },
+      );
+    }).toList());
   }
 
   @override
@@ -111,20 +144,33 @@ class _AdminAddProductScreenState extends State<AdminAddProductScreen> {
                                         )
                                       : const SizedBox(),
                                   Expanded(
-                                    child: CarouselSlider(
-                                      items: state.imagesList.map((i) {
-                                        return Builder(
-                                            builder: (context) => Image.file(
-                                                  i,
-                                                  fit: BoxFit.cover,
-                                                ));
-                                      }).toList(),
-                                      options: CarouselOptions(
+                                      child: FutureBuilder<List<Widget>>(
+                                    future: loadImageWidgets(state
+                                        .imagesList), // Chuyển danh sách ảnh thành widgets async
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      } else if (snapshot.hasError) {
+                                        return Center(
+                                            child: Text('Lỗi khi tải ảnh!'));
+                                      } else if (!snapshot.hasData ||
+                                          snapshot.data!.isEmpty) {
+                                        return Center(
+                                            child: Text('Không có ảnh nào.'));
+                                      }
+
+                                      return CarouselSlider(
+                                        items: snapshot.data!,
+                                        options: CarouselOptions(
                                           height: 230,
                                           viewportFraction: 1,
-                                          initialPage: 0),
-                                    ),
-                                  ),
+                                          initialPage: 0,
+                                        ),
+                                      );
+                                    },
+                                  )),
                                   state.imagesList.length > 1
                                       ? const Icon(
                                           Icons.chevron_right_rounded,

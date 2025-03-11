@@ -28,6 +28,7 @@ import 'package:flutter_amazon_clone_bloc/src/presentation/views/auth/auth_scree
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/bottom_navigation_bar/bottom_bar.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/cart/cart_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/category_products/category_products_screen.dart';
+import 'package:flutter_amazon_clone_bloc/src/presentation/views/chat/chat_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/home/home_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/menu/menu_screen.dart';
 import 'package:flutter_amazon_clone_bloc/src/presentation/views/payment/payment_screen.dart';
@@ -201,6 +202,12 @@ final router = GoRouter(initialLocation: '/', routes: [
       path: AppRouteConstants.menuScreenRoute.path,
       pageBuilder: (context, state) {
         return const MaterialPage(child: MenuScreen());
+      }),
+  GoRoute(
+      name: AppRouteConstants.chatScreenRoute.name,
+      path: AppRouteConstants.chatScreenRoute.path,
+      pageBuilder: (context, state) {
+        return const MaterialPage(child: ChatScreen());
       }),
   GoRoute(
       name: AppRouteConstants.cartScreenScreenRoute.name,

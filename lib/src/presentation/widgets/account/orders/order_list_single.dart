@@ -32,8 +32,8 @@ class OrderListSingle extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            CachedNetworkImage(
-              imageUrl: order.products[0].images[0],
+            Image.network(
+              order.products[0].images[0],
               height: 75,
               width: 80,
               fit: BoxFit.contain,

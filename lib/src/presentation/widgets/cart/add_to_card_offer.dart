@@ -44,6 +44,13 @@ class AddToCartOffer extends StatelessWidget {
                       product.images[0],
                       height: 130,
                       width: 130,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(child: CircularProgressIndicator());
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Text("Lỗi tải ảnh");
+                      },
                     ),
                   ),
                   Text(
@@ -75,7 +82,7 @@ class AddToCartOffer extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    '₹ ${formatPriceWithDecimal(product.price)}',
+                    ' ${formatPriceWithDecimal(product.price)}',
                     maxLines: 2,
                     style: const TextStyle(
                         fontSize: 16,

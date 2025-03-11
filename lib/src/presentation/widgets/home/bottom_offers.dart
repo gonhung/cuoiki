@@ -36,7 +36,7 @@ class BottomOffers extends StatelessWidget {
                 if (Constants.bottomOfferImages[index]['category'] ==
                     'AmazonPay') {
                   if (context.mounted) {
-                    showSnackBar(context, 'Amazon Pay coming soon!');
+                    showSnackBar(context, 'NhuMo Pay coming soon!');
                   }
                 } else {
                   context.pushNamed(
@@ -47,10 +47,16 @@ class BottomOffers extends StatelessWidget {
                       });
                 }
               },
-              child: CachedNetworkImage(
-                imageUrl: Constants.bottomOfferImages[index]['image']!,
-                placeholder: (context, url) => const SizedBox(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+              child: Image.network(
+                Constants.bottomOfferImages[index]['image']!,
+                fit: BoxFit.contain,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(child: CircularProgressIndicator());
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Icon(Icons.error);
+                },
               ),
             ),
           );

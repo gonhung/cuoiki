@@ -118,14 +118,14 @@ class AdminBottomBar extends StatelessWidget {
                     page: 1,
                     index: state.index,
                     label: 'Analytics'),
-                bottomNavBarItem(
-                    icon: const Icon(
-                      Icons.featured_video_outlined,
-                      size: 26,
-                    ),
-                    page: 2,
-                    index: state.index,
-                    label: 'Offers'),
+                // bottomNavBarItem(
+                //     icon: const Icon(
+                //       Icons.featured_video_outlined,
+                //       size: 26,
+                //     ),
+                //     page: 2,
+                //     index: state.index,
+                //     label: 'Offers'),
                 bottomNavBarItem(
                     icon: const Icon(
                       Icons.local_shipping_outlined,

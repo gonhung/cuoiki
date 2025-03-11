@@ -69,7 +69,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         color: Colors.black87),
                   ),
                   const Text(
-                    '₹',
+                    '',
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.black87,
@@ -163,8 +163,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           },
                           builder: (context, state) {
                             if (state is OrderProcessS) {
-                              return GooglePayButton(
-                                onPressed: () {
+                              return ElevatedButton(
+                                onPressed: () async {
                                   addressToBeUsed = '';
                                   bool isFromForm =
                                       flatBuildingController.text.isNotEmpty ||
@@ -186,24 +186,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   } else {
                                     showSnackBar(context, 'ERROR');
                                   }
-                                },
-                                width: double.infinity,
-                                height: 50,
-                                paymentConfiguration: snapshot.data!,
-                                paymentItems: state.paymentItems,
-                                type: GooglePayButtonType.order,
-                                margin: const EdgeInsets.only(top: 15.0),
-                                onPaymentResult: (res) async {
+
                                   showSnackBar(context,
                                       'Order placed successfully! redirecting...');
                                   if (state.user.address == '') {
                                     context.read<UserCubit>().saveUserAddress(
                                         address: addressToBeUsed);
                                   }
+
                                   await context.read<OrderCubit>().placeOrder(
-                                      address: addressToBeUsed,
-                                      totalAmount:
-                                          double.parse(widget.totalAmount));
+                                        address: addressToBeUsed,
+                                        totalAmount:
+                                            double.parse(widget.totalAmount),
+                                      );
 
                                   if (context.mounted) {
                                     context
@@ -212,8 +207,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     Navigator.pop(context);
                                   }
                                 },
-                                loadingIndicator: const Center(
-                                  child: CircularProgressIndicator(),
+                                child: Text('Order'),
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: Size(double.infinity, 50),
+                                  padding: EdgeInsets.symmetric(vertical: 15),
                                 ),
                               );
                             }
